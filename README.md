@@ -1,12 +1,12 @@
-#MongoDB Atlas Search Autocomplete Example
+# MongoDB Atlas Search Autocomplete Example
 
-This example uses data from the [OpenAddress] data collection to demonstrate how MongoDB Atlas Search's autocomplete feature can be used for address validation.
+This example uses data from the [OpenAddress](https://openaddresses.io/) data collection to demonstrate how MongoDB Atlas Search's autocomplete feature can be used for address validation.
 
 ## Data Load
 
 The address data from OpenAddresses is provided as a zip which extracts into several directories and files. In addition to the address information, the OpenAddresses data also includes buildings and parcels data, which I'm not interested in for this exercise. I used the following script to load the data into Atlas:
 
-`bash
+```bash
 for dir in */; do
    echo "$dir"
    for file in "$dir"*addresses*.geojson; do
@@ -14,9 +14,9 @@ for dir in */; do
        echo "$file"
    done
 done
-`
+```
 A sample document from the collection looks as follows:
-```json
+```javascript
 {
   _id: ObjectId("6407ef20a9c2753ef45d12b0"),
   type: 'Feature',
@@ -71,7 +71,7 @@ db.addresses.aggregate([
 
 This will create a new `FULL_ADDRESS` field in our documents, for example: 
 
-```json
+```javascript
 FULL_ADDRESS: '2530 E US HIGHWAY 377, ACTON, TX'
 ```
 
