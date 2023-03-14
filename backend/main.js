@@ -20,7 +20,7 @@ server.get("/search", async (request, response) => {
         let result = await collection.aggregate([
             {
                 "$search": {
-                    "index": "autocomplete2",
+                    "index": "autocomplete",
                     "autocomplete" : {
                         "query": `${request.query.term}`,
                         "path": "properties.FULL_ADDRESS", 

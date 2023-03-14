@@ -102,7 +102,7 @@ For a performance boost, store the full address field in the autocomplete index.
 
 Click **Save Changes** and wait for the index generate.
 
-![Create Search Index](./images/create_search_index_generate.png)
+![Create Search Index](./images/search_index_generate.png)
 
 
 ## Testing
@@ -110,10 +110,14 @@ We can use the [autocomplete](https://www.mongodb.com/docs/atlas/atlas-search/au
 
 
 ## A Simple UI
-This simple UI is based on Nic Raboy's [Building an Autocomplete Form Element with Atlas Search and JavaScript](https://www.youtube.com/watch?v=3IDlOI0D8-8). In summary, Nic builds from scratch a backend REST API and a frontend HTML page that calls the API. It's excellent and worth the watch, but for this excersise we can proceed straight to Go. 
+This simple UI is based on Nic Raboy's [Building an Autocomplete Form Element with Atlas Search and JavaScript](https://www.youtube.com/watch?v=3IDlOI0D8-8). In summary, Nic builds from scratch a backend REST API and a frontend HTML page that calls the API. It's excellent and worth the watch, but for this exercise we can proceed straight to Go. 
 
 ### Step 1 - Get the Code
 Clone this repo. 
+
+```bash
+> git clone https://github.com/wbleonard/atlas-search-autocomplete.git
+```
 
 ### Step 2 - Backend
 ```bash
@@ -139,11 +143,27 @@ The start the backend server
 As Nic did, we will use [serve](https://www.npmjs.com/package/serve) to run the frontend. If you don't already have serve installed:
 
 ```bash
-> npm install --global serve
+> npm install --global
 ```
 
+Then, launch serve, setting the port to whatever you prefer: 
+```
+> serve -l 5001
+```
+
+
 ### Step 4 - Use
-It ain't pretty, but it works...
+It ain't pretty, but it works. Launch the UI using [http://localhost:5001](http://localhost:5001):
+
+![Create Search Index](./images/autocomplete_ui.png)
+
+![Create Search Index](./images/autocomplete_ui2.png)
+
+## Troubleshooting
+If things aren't working for you, you can test the backend API from the browser, for example [http://localhost:3000/search?term=2530](http://localhost:3000/search?term=2530):
+
+![Create Search Index](./images/search_api_test.png)
+
 
 
 
