@@ -1,6 +1,6 @@
 # MongoDB Atlas Search Autocomplete Example
 
-This example uses data from the [OpenAddress](https://openaddresses.io/) data collection to demonstrate how MongoDB Atlas Search's autocomplete feature can be used for address validation.
+This example uses data from the [OpenAddresses](https://openaddresses.io/) data collection to demonstrate how MongoDB Atlas Search's autocomplete feature can be used for address validation.
 
 ## Data Load
 
@@ -76,7 +76,7 @@ FULL_ADDRESS: '2530 E US HIGHWAY 377, ACTON, TX'
 ```
 
 ## Search Index
-Let's next create a [autocomplete](https://www.mongodb.com/docs/atlas/atlas-search/autocomplete) index on that new searchable field. In the Atlas UI, navigate to the *Search* tab and select *Create Index*:
+Let's next create a [autocomplete](https://www.mongodb.com/docs/atlas/atlas-search/autocomplete) index on that new searchable field. In the Atlas UI, navigate to the **Search** tab and select **Create Index**:
 
 ![Create Search Index](./images/create_search_index_1.png)
 
@@ -84,13 +84,13 @@ Select the **Visual Editor** and click **Next**.
 
 Name the index and select the collection where you loaded the address data:
 
-![Create Search Index](./images/create_search_index_1.png)
+![Create Search Index](./images/create_search_index_2.png)
 
 Click **Next** and select the button to **Refine Your Index**:
 
 ![Create Search Index](./images/create_search_index_3.png)
 
-Disable Dynamic Mapping and click **Add Field Mapping*:
+Disable Dynamic Mapping and click **Add Field Mapping**:
 
 ![Create Search Index](./images/create_search_index_mapping.png)
 
@@ -108,6 +108,42 @@ Click **Save Changes** and wait for the index generate.
 ## Testing
 We can use the [autocomplete](https://www.mongodb.com/docs/atlas/atlas-search/autocomplete/#std-label-autocomplete-ref) operator from Compass or the Shell to test the index. For example:
 
+```javascript
+db.addresses.aggregate([
+  {
+    $search: {
+      index: "autocomplete",
+      autocomplete: {
+        path: "properties.FULL_ADDRESS",
+        query: "2530",
+      },
+    },
+  }
+])
+{
+  _id: ObjectId("6407de2de2ab27601987934b"),
+  type: 'Feature',
+  properties: {
+    hash: '47efd3bd73609169',
+    number: '2530',
+    street: '2530 FRESHWATER LN',
+    unit: '',
+    city: 'BLUFFTON',
+    district: '',
+    region: 'SC',
+    postcode: '29910',
+    id: '',
+    FULL_ADDRESS: '2530 2530 FRESHWATER LN, BLUFFTON, SC'
+  },
+  geometry: {
+    type: 'Point',
+    coordinates: [
+      -80.9638319,
+      32.3125387
+    ]
+  }
+}
+```
 
 ## A Simple UI
 This simple UI is based on Nic Raboy's [Building an Autocomplete Form Element with Atlas Search and JavaScript](https://www.youtube.com/watch?v=3IDlOI0D8-8). In summary, Nic builds from scratch a backend REST API and a frontend HTML page that calls the API. It's excellent and worth the watch, but for this exercise we can proceed straight to Go. 
@@ -148,6 +184,7 @@ As Nic did, we will use [serve](https://www.npmjs.com/package/serve) to run the 
 
 Then, launch serve, setting the port to whatever you prefer: 
 ```
+> cd frontend
 > serve -l 5001
 ```
 
